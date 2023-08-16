@@ -18,9 +18,10 @@
 
       }
 
-
       const computerSelection = getComputerChoice();
 
+
+      /* Check for the winner */
       function round () {
         if (playerSelection === 'rock' && computerSelection === 'paper') {
           console.log('You lose! Paper beats Rock');
@@ -34,11 +35,12 @@
         } else if (playerSelection === computerSelection) {
           console.log(`It\'s a draw! Both you and the computer chose ${playerSelection.charAt(0).toUpperCase()}${playerSelection.slice(1)}`);
 
-        } else {console.log(`You win! ${playerSelection.charAt(0).toUpperCase()}${playerSelection.slice(1)} beats ${computerSelection.charAt(0).toUpperCase()}${playerSelection.slice(1)}`);
+        } else {console.log(`You win! ${playerSelection.charAt(0).toUpperCase()}${playerSelection.slice(1)} beats ${computerSelection.charAt(0).toUpperCase()}${computerSelection.slice(1)}`);
 
         }
       }
 
+      /* Check if the user entry is valid*/
       (choices.includes(playerSelection)) ? round() : console.log('Wrong entry. Please, check your spelling and try again.');
       
 
