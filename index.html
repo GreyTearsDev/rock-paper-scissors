@@ -9,7 +9,8 @@
     <script>
 
       const playerSelection = prompt('Choose one. Rock, Paper or Scissors?').toLowerCase();
-      console.log(playerSelection)
+      
+      if (playerSelection )
 
 
       function getComputerChoice() {
@@ -21,10 +22,22 @@
       const computerSelection = getComputerChoice();
 
       function round () {
-        if (playerSelection === 'rock' && computerSelection === 'paper') {
-          console.log('You lose! Paper beats Rock')
-        }
 
+        if (playerSelection === 'rock' && computerSelection === 'paper') {
+          console.log('You lose! Paper beats Rock');
+
+        } else if (playerSelection === 'paper' && computerSelection === 'scissors') {
+          console.log('You lose! Scissors beats Paper');
+
+        } else if (playerSelection === 'scissors' && computerSelection === 'rock') {
+          console.log('You lose! Rock beats Scissors');
+
+        } else if (playerSelection === computerSelection) {
+          console.log(`It\'s a draw! Both you and the computer chose ${playerSelection.charAt(0).toUpperCase()}${playerSelection.slice(1)}`);
+
+        } else {console.log(`You win! ${playerSelection.charAt(0).toUpperCase()}${playerSelection.slice(1)} beats ${computerSelection.charAt(0).toUpperCase()}${playerSelection.slice(1)}`);
+
+        }
       }
 
       round();
