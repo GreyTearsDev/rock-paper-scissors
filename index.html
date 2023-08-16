@@ -31,15 +31,13 @@
 
 
       function game() {
+        let roundCounter = 5;
         let playerScore = 0;
         let computerScore = 0;
-        let roundCounter = 5;
-        let finalScore = `FINAL SCORE: 
-        You: ${playerScore} || Computer: ${computerScore}`;
 
         for (let i = 0; i < 5; i++) {
 
-          console.log(`ROUNDS LEFT: ${roundCounter}`);
+          console.log(`ROUNDS LEFT: ${roundCounter--}`);
           let playerSelection = prompt('Choose one. Rock, Paper or Scissors?').toLowerCase();
           let computerSelection = getComputerChoice();
           /* Capitalize the first character of the strings */
@@ -53,18 +51,19 @@
             playRound();
           } else if (choices.includes(playerSelection) === false) {
             console.log('Wrong entry. Please, check your spelling and try again.');
-            roundCounter++;
+            ++roundCounter;
+            --i
           }
-          
 
+          /* Display the winner and increment the scoring*/
           switch (resultOfRound) {
             case 'You win':
               console.log(`You win! ${playerReading} beats ${computerReading}`);
-              playerScore++;
+              playerScore = playerScore + 1;
               break;
             case 'You lose':
-              console.log(`You lose! ${computeReading} beats ${playerReading}`);
-              computerScore++;
+              console.log(`You lose! ${computerReading} beats ${playerReading}`);
+              computerScore = computerScore + 1;
               break;
             case 'It\'s a draw':
               console.log(`It\'s a draw! Both you and the computer chose ${playerReading}.`)
@@ -73,6 +72,9 @@
           }
         }
 
+        let finalScore = `FINAL SCORE: 
+        You: ${playerScore} || Computer: ${computerScore}`;
+        
         return console.log(finalScore);
       }
 
