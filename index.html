@@ -9,20 +9,19 @@
     <script>
 
       const playerSelection = prompt('Choose one. Rock, Paper or Scissors?').toLowerCase();
-      
-      if (playerSelection )
+      const choices = ['rock', 'paper', 'scissors'];
 
 
       function getComputerChoice() {
-        const choices = ['rock', 'paper', 'scissors'];
         const randomChoice = Math.floor(Math.random() * choices.length);
         return choices[randomChoice];
+
       }
+
 
       const computerSelection = getComputerChoice();
 
       function round () {
-
         if (playerSelection === 'rock' && computerSelection === 'paper') {
           console.log('You lose! Paper beats Rock');
 
@@ -40,7 +39,8 @@
         }
       }
 
-      round();
+      (choices.includes(playerSelection)) ? round() : console.log('Wrong entry. Please, check your spelling and try again.');
+      
 
 
     </script>
