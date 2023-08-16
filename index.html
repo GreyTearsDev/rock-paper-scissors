@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" display="width=device-width, initial-scale 1.0">
+    <title>Rock Paper Scissors</title>
+  </head>
+  <body>
+    <script>
+
+      const playerSelection = prompt('Choose one. Rock, Paper or Scissors?').toLowerCase();
+      console.log(playerSelection)
+
+
+      function getComputerChoice() {
+        const choices = ['rock', 'paper', 'scissors'];
+        const randomChoice = Math.floor(Math.random() * choices.length);
+        return choices[randomChoice];
+      }
+
+      const computerSelection = getComputerChoice();
+
+      function round () {
+        if (playerSelection === 'rock' && computerSelection === 'paper') {
+          console.log('You lose! Paper beats Rock')
+        }
+
+      }
+
+      round();
+
+
+    </script>
+  </body>
+</html>
