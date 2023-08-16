@@ -7,10 +7,7 @@
   </head>
   <body>
     <script>
-
-      const playerSelection = prompt('Choose one. Rock, Paper or Scissors?').toLowerCase();
       const choices = ['rock', 'paper', 'scissors'];
-
 
       function getComputerChoice() {
         const randomChoice = Math.floor(Math.random() * choices.length);
@@ -18,30 +15,42 @@
 
       }
 
-      const computerSelection = getComputerChoice();
-
-
       /* Check for the winner */
-      function round () {
+      function playRound (playerSelection, computerSelection) {
+        
         if (playerSelection === 'rock' && computerSelection === 'paper') {
-          console.log('You lose! Paper beats Rock');
+          return 'You lose! Paper beats Rock';
 
         } else if (playerSelection === 'paper' && computerSelection === 'scissors') {
-          console.log('You lose! Scissors beats Paper');
+          return 'You lose! Scissors beats Paper';
 
         } else if (playerSelection === 'scissors' && computerSelection === 'rock') {
-          console.log('You lose! Rock beats Scissors');
+          return 'You lose! Rock beats Scissors';
 
         } else if (playerSelection === computerSelection) {
-          console.log(`It\'s a draw! Both you and the computer chose ${playerSelection.charAt(0).toUpperCase()}${playerSelection.slice(1)}`);
+          return (`It\'s a draw! Both you and the computer chose ${playerSelection.charAt(0).toUpperCase()}${playerSelection.slice(1)}.`);
 
-        } else {console.log(`You win! ${playerSelection.charAt(0).toUpperCase()}${playerSelection.slice(1)} beats ${computerSelection.charAt(0).toUpperCase()}${computerSelection.slice(1)}`);
+        } else {return `You win! ${playerSelection.charAt(0).toUpperCase()}${playerSelection.slice(1)} beats ${computerSelection.charAt(0).toUpperCase()}${computerSelection.slice(1)}`;
 
         }
       }
 
+
+      function game() {
+        for (let i = 0; i < 5; i++) {
+          const playerSelection = prompt('Choose one. Rock, Paper or Scissors?').toLowerCase();
+          const computerSelection = getComputerChoice();
+          console.log(playRound(playerSelection, computerSelection));
+        }
+      }
+
+      game();
+
+
+
+
       /* Check if the user entry is valid*/
-      (choices.includes(playerSelection)) ? round() : console.log('Wrong entry. Please, check your spelling and try again.');
+      (choices.includes(playerSelection)) ? playRound() : console.log('Wrong entry. Please, check your spelling and try again.');
       
 
 
