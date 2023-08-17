@@ -55,8 +55,7 @@
             playRound();
           } else if (choices.includes(playerSelection) === false) { 
             console.log('Wrong entry. Please, check your spelling and try again.');
-            ++roundCounter; // Increments the counter so the user doesn't 
-                            // lose a round because of an invalid entry 
+            ++roundCounter; 
             --i // Decreases the amount of loops by 1 so 
                 // that the user is not penalized for a wrongful entry
           }
