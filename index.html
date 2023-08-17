@@ -7,15 +7,16 @@
   </head>
   <body>
     <script>
+
       let choices = ['rock', 'paper', 'scissors'];
 
-      /* Gets a random element from the array 'choice' */
+      // Gets a random element from the array 'choices' to be used in the function 'playRound'
       function getComputerChoice() {
         const randomChoice = Math.floor(Math.random() * choices.length);
         return choices[randomChoice];
       }
 
-      /* Check for the winner */
+      // Checks for the winner 
       function playRound (playerSelection, computerSelection) {
 
         if ((playerSelection === 'rock' && computerSelection === 'paper')
@@ -40,22 +41,27 @@
           console.log(`ROUNDS LEFT: ${roundCounter--}`);
           let playerSelection = prompt('Choose one. Rock, Paper or Scissors?').toLowerCase();
           let computerSelection = getComputerChoice();
-          /* Capitalize the first character of the strings */
-          let playerReading = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
-          let computerReading = computerSelection.charAt(0).toUpperCase() + computerSelection.slice(1);
+
+          // Capitalizes the first character of the strings 
+          let playerReading = playerSelection.charAt(0).toUpperCase() +
+                              playerSelection.slice(1);
+          let computerReading = computerSelection.charAt(0).toUpperCase() +
+                                computerSelection.slice(1);
           let resultOfRound = playRound(playerSelection, computerSelection);
          
 
-          /* Check if the user entry is valid */
+          // Checks if the user entry is valid 
           if (choices.includes(playerSelection)) {
             playRound();
-          } else if (choices.includes(playerSelection) === false) {
+          } else if (choices.includes(playerSelection) === false) { 
             console.log('Wrong entry. Please, check your spelling and try again.');
-            ++roundCounter;
-            --i
+            ++roundCounter; // Increments the counter so the user doesn't 
+                            // lose a round because of an invalid entry 
+            --i // Decreases the amount of loops by 1 so 
+                // that the user is not penalized for a wrongful entry
           }
 
-          /* Display the winner and increment the scoring*/
+          // Displays the winner and increment the scoring
           switch (resultOfRound) {
             case 'You win':
               console.log(`You win! ${playerReading} beats ${computerReading}`);
@@ -72,9 +78,10 @@
           }
         }
 
+        // Displays the final score 
         let finalScore = `FINAL SCORE: 
         You: ${playerScore} || Computer: ${computerScore}`;
-        
+
         return console.log(finalScore);
       }
 
