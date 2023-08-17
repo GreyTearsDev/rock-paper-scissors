@@ -10,7 +10,6 @@
 
       let choices = ['rock', 'paper', 'scissors'];
 
-      // Gets a random element from the array 'choices' to be used in the function 'playRound'
       function getComputerChoice() {
         const randomChoice = Math.floor(Math.random() * choices.length);
         return choices[randomChoice];
@@ -60,7 +59,6 @@
                 // that the user is not penalized for a wrongful entry
           }
 
-          // Displays the winner and increment the scoring
           switch (resultOfRound) {
             case 'You win':
               console.log(`You win! ${playerReading} beats ${computerReading}`);
@@ -77,7 +75,6 @@
           }
         }
 
-        // Displays the final score 
         let finalScore = `FINAL SCORE: 
         You: ${playerScore} || Computer: ${computerScore}`;
 
