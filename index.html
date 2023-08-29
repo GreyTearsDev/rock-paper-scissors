@@ -6,26 +6,43 @@
     <title>Rock Paper Scissors</title>
   </head>
   <body>
-    <script>
+    <div class="sections">
+      <button id="rock">Rock</button>
+      <button id="paper">Paper</button>
+      <button id="scissors">Scissors</button>
+    </div>
 
-      let choices = ['rock', 'paper', 'scissors'];
+    <div class="rounds-left"></div>
+    <div class="round-winner"></div>
+    <div class="game-winner"></div>
+
+
+    <script>
+      const rock = document.getElementById('rock');
+      const paper = document.getElementById('paper');
+      const scissors = document.getElementById('scissors');
+      const choices = ['Rock', 'Paper', 'Scissors']
 
       function getComputerChoice() {
         const randomChoice = Math.floor(Math.random() * choices.length);
         return choices[randomChoice];
       }
+      
+      const computerReading = getComputerChoice()
+      
 
       // Checks for the winner 
-      function playRound (playerSelection, computerSelection) {
+      let resultOfRound;
 
+      function playRound (playerSelection, computerSelection) {
         if ((playerSelection === 'rock' && computerSelection === 'paper')
           || (playerSelection === 'paper' && computerSelection === 'scissors')
           || (playerSelection === 'scissors' && computerSelection === 'rock')) {
-            return 'You lose';
+            return resultOfRound = 'You lose';
         } else if (playerSelection === computerSelection) {
-            return 'It\'s a draw';
-        } else if (choices.includes(playerSelection)) {
-            return 'You win';
+            return resultOfRound = 'It\'s a draw';
+        } else {
+            return resultOfRound = 'You win';
         }
       }
 
@@ -34,51 +51,50 @@
         let roundCounter = 5;
         let playerScore = 0;
         let computerScore = 0;
+        let roundsLeft = document.querySelector('.rounds-left');
+        let roundWinnerMessage = document.querySelector('round-winner');
+        let gameWinnerMessage = document.querySelector('game-winner');
+
 
         for (let i = 0; i < 5; i++) {
 
-          console.log(`ROUNDS LEFT: ${roundCounter--}`);
-          let playerSelection = prompt('Choose one. Rock, Paper or Scissors?').toLowerCase();
-          let computerSelection = getComputerChoice();
+          roundLeft.textContent = `ROUNDS LEFT: ${roundCounter--}`;
 
-          // Capitalizes the first character of the strings 
-          let playerReading = playerSelection.charAt(0).toUpperCase() +
-                              playerSelection.slice(1);
-          let computerReading = computerSelection.charAt(0).toUpperCase() +
-                                computerSelection.slice(1);
-          let resultOfRound = playRound(playerSelection, computerSelection);
-         
+          //Listens  for user clicks
+          rock.addEventListener('click', () => playRound('rock', computerReading))
+          paper.addEventListener('click', () => playRound('paper', computerReading))
+          scissors.addEventListener('click', () => playRound('scissors', computerReading))
+          
 
-          // Checks if the user entry is valid 
-          if (choices.includes(playerSelection)) {
-            playRound();
-          } else if (choices.includes(playerSelection) === false) { 
-            console.log('Wrong entry. Please, check your spelling and try again.');
-            ++roundCounter; 
-            --i // Decreases the amount of loops by 1 so 
-                // that the user is not penalized for a wrongful entry
-          }
-
-          switch (resultOfRound) {
-            case 'You win':
-              console.log(`You win! ${playerReading} beats ${computerReading}`);
+          // Checks if rock wins
+          if (rock.addEventListener('click', () => playRound('rock', computerReading))) {
+            
+            if (resultOfRound == 'You win') {
+              roundWinnerMessage.textContent = `You win! Rock beats ${computerReading}`;
               playerScore = playerScore + 1;
-              break;
-            case 'You lose':
-              console.log(`You lose! ${computerReading} beats ${playerReading}`);
+            } else if (resultOfRound == 'It\'s a draw') {
+              roundWinnerMessage.textContent = 'It\'s a draw! Both you and the computer chose "Rock".'
+            } else (resultOfRound == 'You lose') {
+              roundWinnerMessage.textContent = `You lose! ${computerReading} beats Rock`;
               computerScore = computerScore + 1;
-              break;
-            case 'It\'s a draw':
-              console.log(`It\'s a draw! Both you and the computer chose ${playerReading}.`)
-            default:
-              break;
+            }
           }
+          
         }
-
         let finalScore = `FINAL SCORE: 
         You: ${playerScore} || Computer: ${computerScore}`;
 
-        return console.log(finalScore);
+        function gameWinner (playerScore, computerScore) {
+          if (playerScore < computerScore) {
+            gameWinnerMessage.textContent = ' YOU WON';
+          } else if (playerScore > computerScore) {
+            gameWinnerMessage.textContent = 'YOU LOST';
+          } else (playerScore === computerScore) {
+            gameWinnerMessage.textContent = 'IT\'S A DRAW';
+          }
+        }
+
+        gameWinner()
       }
 
       game();
