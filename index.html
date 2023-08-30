@@ -21,7 +21,7 @@
       const rock = document.getElementById('rock');
       const paper = document.getElementById('paper');
       const scissors = document.getElementById('scissors');
-      const choices = ['Rock', 'Paper', 'Scissors']
+      const choices = ['Rock', 'Paper', 'Scissors'];
       let roundCounter = 5;
       let playerScore = 0;
       let computerScore = 0;
@@ -29,84 +29,95 @@
       let roundWinnerMessage = document.querySelector('.round-winner');
       let gameWinnerMessage = document.querySelector('.game-winner');
 
-      //The events
-      rock.addEventListener('click', () => {
-        // Checks if rock wins and manages the score
-        eventManager(rock.textContent);
-      });
-    
-      paper.addEventListener('click', () => {
-        // Checks if paper wins and manages the score
-        eventManager(paper.textContent);
-      });
-
-      scissors.addEventListener('click', () => {
-        // Checks if scissors wins and manages the score
-        eventManager(scissors.textContent);
-      });
-
-
-      function eventManager (clickedButton) {
-        let playersReading = clickedButton.toLowerCase();
-        let computerReading = getComputerChoice();
-
-        // Displays the correct message to the player according to the game's result and manages the score
-        let result = playRound(playersReading, computerReading)
-        let playersOption = playersReading.charAt(0).toUpperCase() + clickedButton.slice(1);
-
-          roundsLeft.textContent = `ROUNDS LEFT: ${roundCounter--}`;
-          if (result == 'You win') {
-            roundWinnerMessage.textContent = `You win! ${playersOption} beats ${computerReading}`;
-            playerScore += 1;
-          } else if (result == 'It\'s a draw') {
-            roundWinnerMessage.textContent = `It\'s a draw! Both you and the computer chose ${playersOption}.`
-          } else if (result == 'You lose') {
-            roundWinnerMessage.textContent = `You lose! ${computerReading} beats ${playersOption}.`;
-            computerScore += 1;
-          }
-      }
-
-      function playRound (playerSelection, computerSelection) {
-        // Checks for the winner 
-        let resultOfRound;
-        let computerSelectionLowerCased = computerSelection.toLocaleLowerCase()
-        console.log(`result of round: ${resultOfRound}`)
-        if ((playerSelection === 'rock' && computerSelectionLowerCased === 'paper')
-          || (playerSelection === 'paper' && computerSelectionLowerCased === 'scissors')
-          || (playerSelection === 'scissors' && computerSelectionLowerCased === 'rock')) {
-          resultOfRound = 'You lose';
-        } else if (playerSelection === computerSelectionLowerCased) {
-          resultOfRound = 'It\'s a draw';
-        } else {
-          resultOfRound = 'You win';
-        }
-        return resultOfRound;
-      }
-
-      function getComputerChoice() {
-        //Gets a random option from the 'choices' array
-        const randomChoice = Math.floor(Math.random() * choices.length);
-        return choices[randomChoice];
-      }
-
-
-      function gameWinner (playerScore, computerScore) {
-        if (playerScore < computerScore) {
-          gameWinnerMessage.textContent = ' YOU WON';
-        } else if (playerScore > computerScore) {
-          gameWinnerMessage.textContent = 'YOU LOST';
-        } else if (playerScore === computerScore) {
-          gameWinnerMessage.textContent = 'IT\'S A DRAW';
-        }
-      }
-
       function playTheGame() {
-        gameWinner();
-        rock.removeEventListener('click', () => playRound('rock', computerReading))
-        paper.removeEventListener('click', () => playRound('paper', computerReading))
-        scissors.removeEventListener('click', () => playRound('scissors', computerReading))
+        //The events
+        rock.addEventListener('click', () => {
+          // Checks if rock wins and manages the score
+          eventManager(rock.textContent);
+        });
+      
+        paper.addEventListener('click', () => {
+          // Checks if paper wins and manages the score
+          eventManager(paper.textContent);
+        });
 
+        scissors.addEventListener('click', () => {
+          // Checks if scissors wins and manages the score
+          eventManager(scissors.textContent);
+        });
+
+
+        function eventManager (clickedButton) {
+          // Displays the correct message to the player according to the game's result and manages the score
+
+          let playersReading = clickedButton.toLowerCase();
+          let computerReading = getComputerChoice();
+          let result = playRound(playersReading, computerReading)
+          let playersOption = playersReading.charAt(0).toUpperCase() + clickedButton.slice(1);
+
+            roundsLeft.textContent = `ROUNDS LEFT: ${--roundCounter} / 5`;
+            if (result == 'You win') {
+              roundWinnerMessage.textContent = `You win! ${playersOption} beats ${computerReading}`;
+              playerScore += 1;
+            } else if (result == 'It\'s a draw') {
+              roundWinnerMessage.textContent = `It\'s a draw! Both you and the computer chose ${playersOption}.`
+            } else if (result == 'You lose') {
+              roundWinnerMessage.textContent = `You lose! ${computerReading} beats ${playersOption}.`;
+              computerScore += 1;
+            }
+
+            if (roundCounter == 0) {
+              showTheWinner(playerScore, computerScore);
+            }
+
+        }
+
+        function playRound (playerSelection, computerSelection) {
+          // Checks for the winner 
+          let resultOfRound;
+          let computerSelectionLowerCased = computerSelection.toLocaleLowerCase()
+          if ((playerSelection === 'rock' && computerSelectionLowerCased === 'paper')
+            || (playerSelection === 'paper' && computerSelectionLowerCased === 'scissors')
+            || (playerSelection === 'scissors' && computerSelectionLowerCased === 'rock')) {
+            resultOfRound = 'You lose';
+          } else if (playerSelection === computerSelectionLowerCased) {
+            resultOfRound = 'It\'s a draw';
+          } else {
+            resultOfRound = 'You win';
+          }
+          console.log(resultOfRound);
+          return resultOfRound;
+        }
+
+        function getComputerChoice() {
+          //Gets a random option from the 'choices' array
+          const randomChoice = Math.floor(Math.random() * choices.length);
+          return choices[randomChoice];
+        }
+
+        function showTheWinner (playerScore, computerScore) {
+          //Gives the final score and ends the game
+          if (playerScore > computerScore) {
+            gameWinnerMessage.textContent = 'YOU\'VE WON';
+          } else if (playerScore < computerScore) {
+            gameWinnerMessage.textContent = 'YOU\'VE LOST';
+          } else if (playerScore === computerScore) {
+            gameWinnerMessage.textContent = 'IT\'S A DRAW';
+          }
+
+          removeTheEvents(); 
+        }
+
+        function removeTheEvents() {
+          // Removes the events once the number of rounds gets to zero
+          rock.removeEventListener('click', () => playRound('rock', computerReading));
+          paper.removeEventListener('click', () => playRound('paper', computerReading));
+          scissors.removeEventListener('click', () => playRound('scissors', computerReading));
+        }
+        
       }
+
+      playTheGame();
 
     </script>
   </body>
