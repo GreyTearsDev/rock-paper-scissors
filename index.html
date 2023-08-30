@@ -18,9 +18,9 @@
 
 
     <script>
-      const rock = document.getElementById('rock');
-      const paper = document.getElementById('paper');
-      const scissors = document.getElementById('scissors');
+      const rock = document.getElementById('rock').textContent.toLowerCase();
+      const paper = document.getElementById('paper').textContent.toLowerCase();
+      const scissors = document.getElementById('scissors').textContent.toLowerCase();
       const choices = ['Rock', 'Paper', 'Scissors']
 
       function getComputerChoice() {
@@ -54,10 +54,11 @@
         let gameWinnerMessage = document.querySelector('.game-winner');
         
         
+        
+        rock.addEventListener('click', () => {
         // Checks if rock wins and manages the score
-        if (rock.addEventListener('click', () => playRound('rock', computerReading))) {
+          playRound('rock', computerReading)
           roundsLeft.textContent = `ROUNDS LEFT: ${roundCounter--}`;
-
           if (resultOfRound == 'You win') {
             roundWinnerMessage.textContent = `You win! Rock beats ${computerReading}`;
             playerScore = playerScore + 1;
@@ -67,11 +68,13 @@
             roundWinnerMessage.textContent = `You lose! ${computerReading} beats Rock`;
             computerScore = computerScore + 1;
           }
-        }
-        // Checks if paper wins and manages the score
-        if (paper.addEventListener('click', () => playRound('paper', computerReading))) {
-          roundsLeft.textContent = `ROUNDS LEFT: ${roundCounter--}`;
+        });
+      
 
+        paper.addEventListener('click', () => {
+        // Checks if paper wins and manages the score
+          playRound('paper', computerReading);
+          roundsLeft.textContent = `ROUNDS LEFT: ${roundCounter--}`;
           if (resultOfRound == 'You win') {
             roundWinnerMessage.textContent = `You win! Paper beats ${computerReading}`;
             playerScore = playerScore + 1;
@@ -81,11 +84,12 @@
             roundWinnerMessage.textContent = `You lose! ${computerReading} beats Paper`;
             computerScore = computerScore + 1;
           }
-        }
-        // Checks if scissors wins and manages the score
-        if (scissors.addEventListener('click', () => playRound('scissors', computerReading))) {
-          roundsLeft.textContent = `ROUNDS LEFT: ${roundCounter--}`;
+        });
 
+        scissors.addEventListener('click', () => {
+          // Checks if scissors wins and manages the score
+          playRound('scissors', computerReading)
+          roundsLeft.textContent = `ROUNDS LEFT: ${roundCounter--}`;
           if (resultOfRound == 'You win') {
             roundWinnerMessage.textContent = `You win! Scissors beats ${computerReading}`;
             playerScore = playerScore + 1;
@@ -95,7 +99,7 @@
             roundWinnerMessage.textContent = `You lose! ${computerReading} beats Scissors`;
             computerScore = computerScore + 1;
           }
-        } 
+        });
 
         endGame()
       }
