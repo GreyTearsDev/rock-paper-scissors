@@ -27,14 +27,12 @@
         const randomChoice = Math.floor(Math.random() * choices.length);
         return choices[randomChoice];
       }
-      
+
       const computerReading = getComputerChoice()
-      
 
-      // Checks for the winner 
       let resultOfRound;
-
       function playRound (playerSelection, computerSelection) {
+      // Checks for the winner 
         if ((playerSelection === 'rock' && computerSelection === 'paper')
           || (playerSelection === 'paper' && computerSelection === 'scissors')
           || (playerSelection === 'scissors' && computerSelection === 'rock')) {
@@ -52,53 +50,79 @@
         let playerScore = 0;
         let computerScore = 0;
         let roundsLeft = document.querySelector('.rounds-left');
-        let roundWinnerMessage = document.querySelector('round-winner');
-        let gameWinnerMessage = document.querySelector('game-winner');
+        let roundWinnerMessage = document.querySelector('.round-winner');
+        let gameWinnerMessage = document.querySelector('.game-winner');
+        
+        
+        // Checks if rock wins and manages the score
+        if (rock.addEventListener('click', () => playRound('rock', computerReading))) {
+          roundsLeft.textContent = `ROUNDS LEFT: ${roundCounter--}`;
 
-
-        for (let i = 0; i < 5; i++) {
-
-          roundLeft.textContent = `ROUNDS LEFT: ${roundCounter--}`;
-
-          //Listens  for user clicks
-          rock.addEventListener('click', () => playRound('rock', computerReading))
-          paper.addEventListener('click', () => playRound('paper', computerReading))
-          scissors.addEventListener('click', () => playRound('scissors', computerReading))
-          
-
-          // Checks if rock wins
-          if (rock.addEventListener('click', () => playRound('rock', computerReading))) {
-            
-            if (resultOfRound == 'You win') {
-              roundWinnerMessage.textContent = `You win! Rock beats ${computerReading}`;
-              playerScore = playerScore + 1;
-            } else if (resultOfRound == 'It\'s a draw') {
-              roundWinnerMessage.textContent = 'It\'s a draw! Both you and the computer chose "Rock".'
-            } else (resultOfRound == 'You lose') {
-              roundWinnerMessage.textContent = `You lose! ${computerReading} beats Rock`;
-              computerScore = computerScore + 1;
-            }
-          }
-          
-        }
-        let finalScore = `FINAL SCORE: 
-        You: ${playerScore} || Computer: ${computerScore}`;
-
-        function gameWinner (playerScore, computerScore) {
-          if (playerScore < computerScore) {
-            gameWinnerMessage.textContent = ' YOU WON';
-          } else if (playerScore > computerScore) {
-            gameWinnerMessage.textContent = 'YOU LOST';
-          } else (playerScore === computerScore) {
-            gameWinnerMessage.textContent = 'IT\'S A DRAW';
+          if (resultOfRound == 'You win') {
+            roundWinnerMessage.textContent = `You win! Rock beats ${computerReading}`;
+            playerScore = playerScore + 1;
+          } else if (resultOfRound == 'It\'s a draw') {
+            roundWinnerMessage.textContent = 'It\'s a draw! Both you and the computer chose "Rock".'
+          } else if (resultOfRound == 'You lose') {
+            roundWinnerMessage.textContent = `You lose! ${computerReading} beats Rock`;
+            computerScore = computerScore + 1;
           }
         }
+        // Checks if paper wins and manages the score
+        if (paper.addEventListener('click', () => playRound('paper', computerReading))) {
+          roundsLeft.textContent = `ROUNDS LEFT: ${roundCounter--}`;
 
-        gameWinner()
+          if (resultOfRound == 'You win') {
+            roundWinnerMessage.textContent = `You win! Paper beats ${computerReading}`;
+            playerScore = playerScore + 1;
+          } else if (resultOfRound == 'It\'s a draw') {
+            roundWinnerMessage.textContent = 'It\'s a draw! Both you and the computer chose "Paper".'
+          } else if (resultOfRound == 'You lose') {
+            roundWinnerMessage.textContent = `You lose! ${computerReading} beats Paper`;
+            computerScore = computerScore + 1;
+          }
+        }
+        // Checks if scissors wins and manages the score
+        if (scissors.addEventListener('click', () => playRound('scissors', computerReading))) {
+          roundsLeft.textContent = `ROUNDS LEFT: ${roundCounter--}`;
+
+          if (resultOfRound == 'You win') {
+            roundWinnerMessage.textContent = `You win! Scissors beats ${computerReading}`;
+            playerScore = playerScore + 1;
+          } else if (resultOfRound == 'It\'s a draw') {
+            roundWinnerMessage.textContent = 'It\'s a draw! Both you and the computer chose "Scissors".'
+          } else if (resultOfRound == 'You lose') {
+            roundWinnerMessage.textContent = `You lose! ${computerReading} beats Scissors`;
+            computerScore = computerScore + 1;
+          }
+        } 
+
+        endGame()
+      }
+      
+      function gameWinner (playerScore, computerScore) {
+        if (playerScore < computerScore) {
+          gameWinnerMessage.textContent = ' YOU WON';
+        } else if (playerScore > computerScore) {
+          gameWinnerMessage.textContent = 'YOU LOST';
+        } else if (playerScore === computerScore) {
+          gameWinnerMessage.textContent = 'IT\'S A DRAW';
+        }
+        return gameWinnerMessage;
       }
 
-      game();
+      function endGame() {
+        if (roundCounter = 0) {
+          gameWinner();
+          rock.removeEventListener('click', () => playRound('rock', computerReading))
+          paper.removeEventListener('click', () => playRound('paper', computerReading))
+          scissors.removeEventListener('click', () => playRound('scissors', computerReading))
+
+        }
+      }
       
+      game()
+
     </script>
   </body>
 </html>
