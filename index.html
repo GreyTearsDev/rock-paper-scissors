@@ -15,6 +15,7 @@
     <div class="rounds-left"></div>
     <div class="round-winner"></div>
     <div class="game-winner"></div>
+    <div class="score"></div>
 
 
     <script>
@@ -28,6 +29,7 @@
       let roundsLeft = document.querySelector('.rounds-left');
       let roundWinnerMessage = document.querySelector('.round-winner');
       let gameWinnerMessage = document.querySelector('.game-winner');
+      let scoreBoard = document.querySelector('.score');
 
       function playTheGame() {
         //The events
@@ -55,7 +57,7 @@
           let result = playRound(playersReading, computerReading)
           let playersOption = playersReading.charAt(0).toUpperCase() + clickedButton.slice(1);
 
-            roundsLeft.textContent = `ROUNDS LEFT: ${--roundCounter} / 5`;
+            roundsLeft.textContent = `ROUNDS LEFT: ${roundCounter--} / 5`;
             if (result == 'You win') {
               roundWinnerMessage.textContent = `You win! ${playersOption} beats ${computerReading}`;
               playerScore += 1;
@@ -85,7 +87,8 @@
           } else {
             resultOfRound = 'You win';
           }
-          console.log(resultOfRound);
+          scoreBoard.textContent = `You: ${playerScore} || Computer ${computerScore}`
+
           return resultOfRound;
         }
 
