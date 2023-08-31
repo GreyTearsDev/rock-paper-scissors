@@ -13,9 +13,9 @@
     </div>
 
     <div class="rounds-left"></div>
-    <div class="round-winner"></div>
+    <div class="round-score"></div>
     <div class="game-winner"></div>
-    <div class="score"></div>
+    <div class="final-score"></div>
 
 
     <script>
@@ -25,53 +25,67 @@
       const choices = ['rock', 'paper', 'scissors'];
       let roundCounter = 5;
       let roundsLeft = document.querySelector('.rounds-left');
-      let roundWinnerMessage = document.querySelector('.round-winner');
-      let gameWinnerMessage = document.querySelector('.game-winner');
-      let scoreBoard = document.querySelector('.score');
+      let roundScore = document.querySelector('.round-score');
+      let gameWinner = document.querySelector('.game-winner');
+      let finalScore = document.querySelector('.final-score');
 
       function playTheGame() {
+        //Plays the game
         rock.addEventListener('click', () => playRound(rock.textContent));
         paper.addEventListener('click', () => playRound(paper.textContent));
         scissors.addEventListener('click', () => playRound(scissors.textContent));
       }
-      
-      function playRound (clickedButton) {
-        // Checks for the winner 
-        let playerSelection = choices.indexOf(clickedButton.toLowerCase());
-        let computerSelection = choices.indexOf(getComputerChoice());
-        console.log(playerSelection);
-        console.log(computerSelection);
 
-
-        if ((playerSelection > computerSelection) 
-          || (playerSelection == 0 && computerSelection == 2)) {
-            if (!(playerSelection == 2 && computerSelection == 0)){
-            return console.log('You win.');
-            }
-        } else if (playerSelection == computerSelection) {
-          return console.log('It\'s a draw.');
-        } else console.log('You lose.');
-
-        //if ((playerSelection == choices[0] && computerSelection == choices[1])
-        //  || (playerSelection == choices[1] && computerSelection == choices[2])
-        //  || (playerSelection == choices[2] && computerSelection == choices[0])) {
-        //  resultOfRound = 'You lose';
-        //} else if (playerSelection == computerSelectionLowerCased) {
-        //  resultOfRound = 'It\'s a draw';
-        //} else {
-        //  resultOfRound = 'You win';
-        //}
-      }
-
-      
       function getComputerChoice() {
         //Gets a random option from the 'choices' array
         const randomChoice = Math.floor(Math.random() * choices.length);
         return choices[randomChoice];
       }
-      
-      console.log(playTheGame());
 
+      function playRound (clickedButton) {
+        // Checks for the winner 
+        let playerSelection = choices.indexOf(clickedButton.toLowerCase());
+        let computerSelection = choices.indexOf(getComputerChoice());
+        let result;
+
+        if ((playerSelection > computerSelection) 
+          || (playerSelection == 0 && computerSelection == 2)) {
+            if (!(playerSelection == 2 && computerSelection == 0)){
+            result = 'You win.';
+            }
+        } else if (playerSelection == computerSelection) {
+          result = 'It\'s a draw.';
+        } else result = 'You lose.';
+
+        displayRoundScore(result);
+      }
+
+      //variables to be incremented in the 'displayRoundScore' function
+      let scorePlayer = 0;
+      let scoreComputer = 0;
+      //variable to count down with the number of rounds
+
+      function displayRoundScore(result) {
+        //Displays on the browser the winner of the last round
+        console.log(result);
+        if (result == 'You win.') {
+          ++scorePlayer;
+        } else if (result == 'You lose.') {
+          ++scoreComputer;
+        }
+        roundScore.textContent = `You: ${scorePlayer} || Computer: ${scoreComputer}`
+
+      }
+
+      function checkGameStatus() {
+        //Checks if the games must end
+      }
+
+      function displayFinalScore() {
+        //Displays on the browser the winner of the game
+      }
+      
+      playTheGame();
     </script>
   </body>
 </html>
