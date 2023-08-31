@@ -12,8 +12,8 @@
       <button id="scissors">Scissors</button>
     </div>
 
-    <div class="rounds-left"></div>
     <div class="round-score"></div>
+    <div class="round-result"></div>
     <div class="game-winner"></div>
     <div class="final-score"></div>
 
@@ -24,22 +24,21 @@
       const scissors = document.getElementById('scissors');
       const choices = ['rock', 'paper', 'scissors'];
       let roundCounter = 5;
-      let roundsLeft = document.querySelector('.rounds-left');
       let roundScore = document.querySelector('.round-score');
+      let roundResult = document.querySelector('.round-result')
       let gameWinner = document.querySelector('.game-winner');
       let finalScore = document.querySelector('.final-score');
 
-      function playTheGame() {
-        //Plays the game
-        rock.addEventListener('click', () => playRound(rock.textContent));
-        paper.addEventListener('click', () => playRound(paper.textContent));
-        scissors.addEventListener('click', () => playRound(scissors.textContent));
-      }
+     
+      rockResult = rock.addEventListener('click', () => displayRoundScore(playRound(rock.textContent)));
+      paperResult = paper.addEventListener('click', () => displayRoundScore(playRound(paper.textContent)));
+      scissorsResult = scissors.addEventListener('click', () => displayRoundScore(playRound(scissors.textContent)));
+
 
       function getComputerChoice() {
         //Gets a random option from the 'choices' array
-        const randomChoice = Math.floor(Math.random() * choices.length);
-        return choices[randomChoice];
+        const RANDOM_CHOICE = Math.floor(Math.random() * choices.length);
+        return choices[RANDOM_CHOICE];
       }
 
       function playRound (clickedButton) {
@@ -47,45 +46,44 @@
         let playerSelection = choices.indexOf(clickedButton.toLowerCase());
         let computerSelection = choices.indexOf(getComputerChoice());
         let result;
-
         if ((playerSelection > computerSelection) 
           || (playerSelection == 0 && computerSelection == 2)) {
             if (!(playerSelection == 2 && computerSelection == 0)){
-            result = 'You win.';
+            return result = 'You won.';
             }
         } else if (playerSelection == computerSelection) {
-          result = 'It\'s a draw.';
-        } else result = 'You lose.';
-
-        displayRoundScore(result);
+          return result = 'It was a draw.';
+        } else {
+          return result = 'You lost.';
+        }
       }
 
       //variables to be incremented in the 'displayRoundScore' function
       let scorePlayer = 0;
       let scoreComputer = 0;
-      //variable to count down with the number of rounds
 
       function displayRoundScore(result) {
         //Displays on the browser the winner of the last round
-        console.log(result);
-        if (result == 'You win.') {
+        roundResult.textContent = `Last round\'s result: ${result}`
+        if (result == 'You won.') {
           ++scorePlayer;
-        } else if (result == 'You lose.') {
+        } else if (result == 'You lost.') {
           ++scoreComputer;
         }
-        roundScore.textContent = `You: ${scorePlayer} || Computer: ${scoreComputer}`
-
-      }
-
-      function checkGameStatus() {
-        //Checks if the games must end
+        roundScore.textContent = `You: ${scorePlayer} || Computer: ${scoreComputer}`;
       }
 
       function displayFinalScore() {
         //Displays on the browser the winner of the game
+        if(scorePlayer == 5 || scoreComputer == 5) {
+          if (scorePlayer > scoreComputer) {
+            gameWinner.textContent = 'FINAL RESULT: Congratulations! You\'ve won!';
+          } else if (scorePlayer < scoreComputer) {
+            gameWinner.textContent = 'FINAL RESULT:Oh oh! You\'ve lost!';
+          } else gameWinner.textContent = 'FINAL RESULT: It\'s a draw. Good game!';
+        }
       }
-      
-      playTheGame();
+
     </script>
   </body>
 </html>
