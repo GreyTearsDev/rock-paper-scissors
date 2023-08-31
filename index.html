@@ -33,6 +33,7 @@
       rockResult = rock.addEventListener('click', () => displayRoundScore(playRound(rock.textContent)));
       paperResult = paper.addEventListener('click', () => displayRoundScore(playRound(paper.textContent)));
       scissorsResult = scissors.addEventListener('click', () => displayRoundScore(playRound(scissors.textContent)));
+      
 
 
       function getComputerChoice() {
@@ -46,16 +47,18 @@
         let playerSelection = choices.indexOf(clickedButton.toLowerCase());
         let computerSelection = choices.indexOf(getComputerChoice());
         let result;
+
         if ((playerSelection > computerSelection) 
           || (playerSelection == 0 && computerSelection == 2)) {
             if (!(playerSelection == 2 && computerSelection == 0)){
-            return result = 'You won.';
+            result = 'You won.';
             }
         } else if (playerSelection == computerSelection) {
-          return result = 'It was a draw.';
+          result = 'It was a draw.';
         } else {
-          return result = 'You lost.';
+          result = 'You lost.';
         }
+        return result;
       }
 
       //variables to be incremented in the 'displayRoundScore' function
@@ -71,6 +74,7 @@
           ++scoreComputer;
         }
         roundScore.textContent = `You: ${scorePlayer} || Computer: ${scoreComputer}`;
+        displayFinalScore();
       }
 
       function displayFinalScore() {
